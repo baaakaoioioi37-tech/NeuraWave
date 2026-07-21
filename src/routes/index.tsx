@@ -575,7 +575,6 @@ function Testimonials() {
 }
 
 function Contact() {
-  const send = useServerFn(sendContactMessage);
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const [error, setError] = useState<string>("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -586,13 +585,14 @@ function Contact() {
     setStatus("sending");
     setError("");
     try {
-      const res = await send({ data: form });
+      // Llamada directa a tu función del navegador
+      const res = await sendContactMessage(form);
       if (res.ok) {
         setStatus("ok");
         setForm({ name: "", email: "", message: "" });
       } else {
         setStatus("error");
-        setError(res.error ?? "Error desconocido");
+        setError(res.error ?? "No se pudo enviar el mensaje.");
       }
     } catch (err) {
       setStatus("error");
