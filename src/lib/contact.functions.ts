@@ -16,7 +16,7 @@ export async function sendContactMessage(data: ContactMessageData) {
 
     await emailjs.send(
       'service_mx71fhx', 
-      'template_cvlh0l6', 
+      'x8xwbpx', 
       templateParams, 
       'KNFQ2ihHQ2s1LjyqJ'
     );
