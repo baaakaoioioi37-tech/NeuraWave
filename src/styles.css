@@ -1,0 +1,175 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --font-sans: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --shadow-glow: 0 0 60px -10px var(--glow);
+  --shadow-jelly: 0 20px 60px -20px var(--glow);
+}
+
+:root {
+  --radius: 1rem;
+  /* Deep space navy background */
+  --background: oklch(0.16 0.03 265);
+  --foreground: oklch(0.97 0.01 250);
+
+  --card: oklch(0.21 0.04 265);
+  --card-foreground: oklch(0.97 0.01 250);
+
+  /* Electric cyan */
+  --primary: oklch(0.78 0.17 195);
+  --primary-foreground: oklch(0.16 0.03 265);
+
+  /* Magenta glow */
+  --secondary: oklch(0.68 0.24 320);
+  --secondary-foreground: oklch(0.97 0.01 250);
+
+  /* Neon violet */
+  --accent: oklch(0.65 0.22 285);
+  --accent-foreground: oklch(0.97 0.01 250);
+
+  --muted: oklch(0.25 0.04 265);
+  --muted-foreground: oklch(0.72 0.03 260);
+
+  --border: oklch(0.3 0.04 265);
+  --input: oklch(0.25 0.04 265);
+  --ring: oklch(0.78 0.17 195);
+
+  --destructive: oklch(0.65 0.23 25);
+  --destructive-foreground: oklch(0.97 0.01 250);
+
+  --glow: oklch(0.78 0.17 195 / 0.35);
+
+  --gradient-hero: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      oklch(0.65 0.22 285 / 0.35),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 40%,
+      oklch(0.68 0.24 320 / 0.25),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 10% 70%,
+      oklch(0.78 0.17 195 / 0.25),
+      transparent 60%
+    );
+  --gradient-primary: linear-gradient(
+    135deg,
+    oklch(0.78 0.17 195),
+    oklch(0.65 0.22 285),
+    oklch(0.68 0.24 320)
+  );
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-image: var(--gradient-hero);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .text-gradient {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background-color: oklch(0.21 0.04 265 / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-jelly);
+  }
+
+  .shadow-jelly {
+    box-shadow: var(--shadow-jelly);
+  }
+
+  .bg-input-50 {
+    background-color: oklch(0.25 0.04 265 / 0.5);
+  }
+
+  .border-input {
+    border-color: var(--color-border);
+  }
+
+  .text-primary-foreground {
+    color: var(--color-primary-foreground);
+  }
+
+  .text-secondary-foreground {
+    color: var(--color-secondary-foreground);
+  }
+
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .bg-muted {
+    background-color: var(--color-muted);
+  }
+}
+
+
+/* Hide Lovable widget */
+[data-lovable-root],
+.lovable-root,
+#lovable-root,
+[data-lovable],
+.lovable {
+  display: none !important;
+}
+

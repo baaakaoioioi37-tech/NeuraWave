@@ -1,0 +1,1241 @@
+import { o as __toESM } from "../_runtime.mjs";
+import { E as isRedirect, g as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
+import { c as createServerFn, i as TSS_SERVER_FUNCTION } from "./createServerFn-CIHAFgYl.mjs";
+import { n as string, t as object } from "../_libs/zod.mjs";
+import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-hNru9bk4.mjs";
+import { n as motion, r as AnimatePresence, t as useReducedMotion } from "../_libs/framer-motion.mjs";
+import { n as Menu, t as X } from "../_libs/lucide-react.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CjYq60bn.js
+var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+function useServerFn(serverFn) {
+	const router = useRouter();
+	return import_react.useCallback(async (...args) => {
+		try {
+			const res = await serverFn(...args);
+			if (isRedirect(res)) throw res;
+			return res;
+		} catch (err) {
+			if (isRedirect(err)) {
+				err.options._fromLocation = router.stores.location.get();
+				return router.navigate(router.resolveRedirect(err).options);
+			}
+			throw err;
+		}
+	}, [router, serverFn]);
+}
+var createSsrRpc = (functionId) => {
+	const url = "/_serverFn/" + functionId;
+	const serverFnMeta = { id: functionId };
+	const fn = async (...args) => {
+		return (await getServerFnById(functionId, { origin: "server" }))(...args);
+	};
+	return Object.assign(fn, {
+		url,
+		serverFnMeta,
+		[TSS_SERVER_FUNCTION]: true
+	});
+};
+var schema = object({
+	name: string().trim().min(1).max(100),
+	email: string().trim().email().max(255),
+	message: string().trim().min(1).max(2e3)
+});
+var sendContactMessage = createServerFn({ method: "POST" }).inputValidator((input) => schema.parse(input)).handler(createSsrRpc("f4ab91175279d24fdd2724e2cfe526fe74336bbdfd18bfac38060247ff17403a"));
+var jelly = {
+	hidden: {
+		opacity: 0,
+		y: 40,
+		scale: .9
+	},
+	show: {
+		opacity: 1,
+		y: 0,
+		scale: 1,
+		transition: {
+			type: "spring",
+			stiffness: 180,
+			damping: 10,
+			mass: .9
+		}
+	}
+};
+var jellyHover = {
+	scale: 1.05,
+	rotate: [
+		0,
+		-1.5,
+		1.5,
+		-1,
+		1,
+		0
+	],
+	transition: {
+		type: "spring",
+		stiffness: 300,
+		damping: 8
+	}
+};
+var jellyTap = {
+	scale: .9,
+	transition: {
+		type: "spring",
+		stiffness: 400,
+		damping: 10
+	}
+};
+var APPS = [
+	{
+		emoji: "🩺",
+		title: "Salud",
+		desc: "Diagnóstico asistido, análisis de imágenes médicas y descubrimiento de nuevos fármacos.",
+		tint: "from-cyan-400/30 to-blue-500/20"
+	},
+	{
+		emoji: "🎓",
+		title: "Educación",
+		desc: "Tutores personalizados, evaluación adaptativa y contenidos generados para cada estudiante.",
+		tint: "from-fuchsia-400/30 to-purple-500/20"
+	},
+	{
+		emoji: "🎨",
+		title: "Arte",
+		desc: "Generación de imágenes, música y video que amplifican la creatividad humana.",
+		tint: "from-pink-400/30 to-rose-500/20"
+	},
+	{
+		emoji: "🚗",
+		title: "Movilidad",
+		desc: "Vehículos autónomos, optimización de rutas y ciudades más inteligentes.",
+		tint: "from-emerald-400/30 to-teal-500/20"
+	},
+	{
+		emoji: "🛒",
+		title: "Comercio",
+		desc: "Recomendaciones personalizadas, detección de fraude y atención al cliente 24/7.",
+		tint: "from-amber-400/30 to-orange-500/20"
+	},
+	{
+		emoji: "🌱",
+		title: "Sostenibilidad",
+		desc: "Modelos climáticos, agricultura de precisión y eficiencia energética.",
+		tint: "from-lime-400/30 to-green-500/20"
+	}
+];
+var SERVICES = [
+	{
+		icon: "🧠",
+		title: "Consultoría en IA",
+		desc: "Diagnóstico y hoja de ruta para integrar IA en tu organización."
+	},
+	{
+		icon: "📚",
+		title: "Cursos y talleres",
+		desc: "Formación práctica desde fundamentos hasta modelos generativos."
+	},
+	{
+		icon: "✍️",
+		title: "Contenido educativo",
+		desc: "Producimos artículos, videos y recursos didácticos sobre IA."
+	},
+	{
+		icon: "🤝",
+		title: "Asesoría de proyectos",
+		desc: "Acompañamos prototipos y validación técnica de soluciones IA."
+	}
+];
+var PARTNERS = [
+	{
+		name: "TechNova Labs",
+		type: "Investigación aplicada",
+		since: "2022"
+	},
+	{
+		name: "EduFuturo",
+		type: "Programas educativos",
+		since: "2023"
+	},
+	{
+		name: "SaludIA MX",
+		type: "Salud digital",
+		since: "2023"
+	},
+	{
+		name: "Creativa Studio",
+		type: "Arte generativo",
+		since: "2024"
+	},
+	{
+		name: "GreenData Co.",
+		type: "Sostenibilidad",
+		since: "2024"
+	}
+];
+var GALLERY = [
+	"https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1655720828018-edd2daec9349?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&w=800&q=80",
+	"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+];
+var TESTIMONIALS = [
+	{
+		quote: "NeuraWave nos ayudó a lanzar nuestro primer modelo de clasificación en semanas.",
+		name: "María López",
+		role: "CTO, SaludIA MX"
+	},
+	{
+		quote: "Los cursos son claros y directos. Mi equipo entendió IA sin humo.",
+		name: "Carlos Rivera",
+		role: "Líder de datos, EduFuturo"
+	},
+	{
+		quote: "Contenido de altísima calidad y con enfoque práctico.",
+		name: "Ana Torres",
+		role: "Directora, Creativa Studio"
+	},
+	{
+		quote: "Aliados confiables para explorar IA generativa aplicada al arte.",
+		name: "Diego Méndez",
+		role: "Fundador, Pixel & Prompt"
+	}
+];
+var NAV_LINKS = [
+	["Inicio", "#inicio"],
+	["Nosotros", "#sobre-nosotros"],
+	["Misión", "#mision-vision"],
+	["Servicios", "#servicios"],
+	["Aplicaciones", "#aplicaciones"],
+	["Aliados", "#aliados"],
+	["Galería", "#galeria"],
+	["Testimonios", "#testimonios"],
+	["Contacto", "#contacto"]
+];
+function Index() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "min-h-screen",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Nav, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(About, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MisionVision, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Services, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Applications, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Partners, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Gallery, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Testimonials, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Contact, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Legal, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Footer, {})
+		]
+	});
+}
+function Nav() {
+	const [open, setOpen] = (0, import_react.useState)(false);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.header, {
+		initial: {
+			y: -60,
+			opacity: 0
+		},
+		animate: {
+			y: 0,
+			opacity: 1
+		},
+		transition: {
+			type: "spring",
+			stiffness: 120,
+			damping: 12
+		},
+		className: "fixed top-0 inset-x-0 z-50 glass",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto px-6 py-4 flex items-center justify-between",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.a, {
+					href: "#inicio",
+					whileHover: {
+						scale: 1.1,
+						rotate: [
+							0,
+							-3,
+							3,
+							0
+						]
+					},
+					className: "inline-flex items-center gap-3 font-bold text-lg tracking-tight",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						src: "/icono.png",
+						alt: "NeuraWave logo",
+						className: "h-12 w-12 rounded-full bg-background object-cover"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-gradient",
+						children: "◈ NeuraWave"
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+					className: "hidden lg:flex gap-5 text-sm text-muted-foreground",
+					children: NAV_LINKS.map(([label, href]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.a, {
+						href,
+						whileHover: {
+							scale: 1.12,
+							y: -2
+						},
+						whileTap: { scale: .9 },
+						className: "hover:text-foreground transition-colors",
+						children: label
+					}, href))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.button, {
+					"aria-label": "Abrir menú",
+					onClick: () => setOpen((o) => !o),
+					className: "lg:hidden p-2 hover:bg-accent/50 transition-colors",
+					whileHover: { scale: 1.1 },
+					whileTap: { scale: .95 },
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+						animate: { rotate: open ? 180 : 0 },
+						transition: { duration: .3 },
+						children: open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-6 h-6 text-foreground" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Menu, { className: "w-6 h-6 text-foreground" })
+					})
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, { children: open && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.nav, {
+			initial: {
+				height: 0,
+				opacity: 0
+			},
+			animate: {
+				height: "auto",
+				opacity: 1
+			},
+			exit: {
+				height: 0,
+				opacity: 0
+			},
+			className: "lg:hidden overflow-hidden border-t border-border/50",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "px-6 py-4 flex flex-col gap-3 text-sm",
+				children: NAV_LINKS.map(([label, href]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href,
+					onClick: () => setOpen(false),
+					className: "text-muted-foreground hover:text-foreground",
+					children: label
+				}, href))
+			})
+		}) })]
+	});
+}
+function Hero() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "inicio",
+		className: "relative pt-40 pb-24 px-6 overflow-hidden",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-5xl mx-auto text-center",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.span, {
+					initial: {
+						opacity: 0,
+						scale: .5
+					},
+					animate: {
+						opacity: 1,
+						scale: 1
+					},
+					transition: {
+						type: "spring",
+						stiffness: 200,
+						damping: 10,
+						delay: .1
+					},
+					className: "inline-block px-4 py-1.5 rounded-full glass text-xs font-medium mb-8",
+					children: "✨ La era de la Inteligencia Artificial"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.h1, {
+					initial: {
+						opacity: 0,
+						y: 60,
+						scale: .9
+					},
+					animate: {
+						opacity: 1,
+						y: 0,
+						scale: 1
+					},
+					transition: {
+						type: "spring",
+						stiffness: 140,
+						damping: 12,
+						delay: .2
+					},
+					className: "text-5xl sm:text-7xl font-bold leading-[1.05] mb-6",
+					children: [
+						"Máquinas que ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-gradient",
+							children: "piensan"
+						}),
+						",",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+						"humanos que ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-gradient",
+							children: "imaginan"
+						}),
+						"."
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.p, {
+					initial: {
+						opacity: 0,
+						y: 30
+					},
+					animate: {
+						opacity: 1,
+						y: 0
+					},
+					transition: {
+						delay: .4,
+						duration: .6
+					},
+					className: "text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10",
+					children: "La Inteligencia Artificial es la disciplina que enseña a las computadoras a aprender, razonar y crear. Descubre cómo está transformando cada rincón de nuestro mundo."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+					initial: {
+						opacity: 0,
+						y: 20
+					},
+					animate: {
+						opacity: 1,
+						y: 0
+					},
+					transition: { delay: .55 },
+					className: "flex flex-wrap gap-4 justify-center",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(JellyButton, {
+						href: "#servicios",
+						variant: "primary",
+						children: "Ver servicios"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(JellyButton, {
+						href: "#contacto",
+						variant: "ghost",
+						children: "Contáctanos"
+					})]
+				})
+			]
+		})
+	});
+}
+function SectionTitle({ eyebrow, title, subtitle }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+		initial: {
+			opacity: 0,
+			y: 30
+		},
+		whileInView: {
+			opacity: 1,
+			y: 0
+		},
+		viewport: {
+			once: true,
+			margin: "-80px"
+		},
+		transition: {
+			type: "spring",
+			stiffness: 140,
+			damping: 14
+		},
+		className: "text-center mb-12",
+		children: [
+			eyebrow && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "inline-block px-3 py-1 rounded-full glass text-xs mb-4",
+				children: eyebrow
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-4xl sm:text-5xl font-bold mb-4",
+				children: title
+			}),
+			subtitle && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-muted-foreground max-w-2xl mx-auto",
+				children: subtitle
+			})
+		]
+	});
+}
+function About() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "sobre-nosotros",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-4xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+				eyebrow: "Quiénes somos",
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Sobre ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-gradient",
+					children: "nosotros"
+				})] })
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				initial: {
+					opacity: 0,
+					scale: .95
+				},
+				whileInView: {
+					opacity: 1,
+					scale: 1
+				},
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				transition: {
+					type: "spring",
+					stiffness: 140,
+					damping: 14
+				},
+				className: "glass rounded-3xl p-8 sm:p-10 text-center",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-muted-foreground leading-relaxed text-lg",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+						className: "text-foreground",
+						children: "NeuraWave"
+					}), " es un proyecto educativo dedicado a democratizar la Inteligencia Artificial. Explicamos, formamos y acompañamos a estudiantes, docentes y organizaciones en su viaje hacia una IA responsable, útil y humana. Creemos que entender la IA es tan importante como usarla."]
+				})
+			})]
+		})
+	});
+}
+function MisionVision() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "mision-vision",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-5xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, { title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Misión y ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-gradient",
+				children: "Visión"
+			})] }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				variants: { show: { transition: { staggerChildren: .12 } } },
+				initial: "hidden",
+				whileInView: "show",
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				className: "grid gap-6 md:grid-cols-2",
+				children: [{
+					icon: "🎯",
+					title: "Misión",
+					desc: "Acercar la Inteligencia Artificial a todas las personas mediante educación clara, contenido accesible y proyectos con impacto real."
+				}, {
+					icon: "🌌",
+					title: "Visión",
+					desc: "Ser el referente iberoamericano en divulgación y formación en IA responsable para 2030, formando una comunidad crítica y creativa."
+				}].map((it) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+					variants: jelly,
+					whileHover: jellyHover,
+					className: "glass rounded-3xl p-8",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-5xl mb-4",
+							children: it.icon
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "text-2xl font-bold mb-2",
+							children: it.title
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-muted-foreground leading-relaxed",
+							children: it.desc
+						})
+					]
+				}, it.title))
+			})]
+		})
+	});
+}
+function Services() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "servicios",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+				eyebrow: "Servicios / Productos",
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Nuestros ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-gradient",
+					children: "servicios"
+				})] }),
+				subtitle: "Soluciones y productos que ofrecemos para impulsar tu conocimiento y proyectos en IA."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				variants: { show: { transition: { staggerChildren: .08 } } },
+				initial: "hidden",
+				whileInView: "show",
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-4",
+				children: SERVICES.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
+					variants: jelly,
+					whileHover: jellyHover,
+					whileTap: jellyTap,
+					className: "glass rounded-3xl p-6",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-4xl mb-3",
+							children: s.icon
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "text-lg font-bold mb-2",
+							children: s.title
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm text-muted-foreground leading-relaxed",
+							children: s.desc
+						})
+					]
+				}, s.title))
+			})]
+		})
+	});
+}
+function Applications() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "aplicaciones",
+		className: "py-24 px-6 relative",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+				eyebrow: "Casos de uso",
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Aplicaciones de la ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-gradient",
+					children: "IA"
+				})] }),
+				subtitle: "Desde diagnósticos médicos hasta obras de arte, la IA está presente en todo."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				variants: { show: { transition: { staggerChildren: .08 } } },
+				initial: "hidden",
+				whileInView: "show",
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3",
+				children: APPS.map((app) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
+					variants: jelly,
+					whileHover: jellyHover,
+					whileTap: jellyTap,
+					className: "relative overflow-hidden rounded-3xl p-7 glass cursor-pointer group",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: `absolute inset-0 -z-10 bg-gradient-to-br ${app.tint} opacity-0 group-hover:opacity-100 transition-opacity` }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+							whileHover: {
+								scale: [
+									1,
+									1.4,
+									.9,
+									1.15,
+									1
+								],
+								rotate: [
+									0,
+									15,
+									-10,
+									5,
+									0
+								]
+							},
+							transition: { duration: .6 },
+							className: "text-5xl mb-4 inline-block",
+							children: app.emoji
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "text-xl font-bold mb-2",
+							children: app.title
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm text-muted-foreground leading-relaxed",
+							children: app.desc
+						})
+					]
+				}, app.title))
+			})]
+		})
+	});
+}
+function Partners() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "aliados",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-5xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+				eyebrow: "Clientes y aliados",
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Aliados ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-gradient",
+					children: "estratégicos"
+				})] }),
+				subtitle: "Organizaciones que caminan con nosotros en proyectos de IA."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				initial: {
+					opacity: 0,
+					y: 30
+				},
+				whileInView: {
+					opacity: 1,
+					y: 0
+				},
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				transition: {
+					type: "spring",
+					stiffness: 140,
+					damping: 14
+				},
+				className: "glass rounded-3xl p-4 sm:p-6 overflow-x-auto",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("table", {
+					className: "w-full text-left text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", {
+						className: "border-b border-border/60 text-muted-foreground",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "py-3 px-3 font-semibold",
+								children: "Aliado"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "py-3 px-3 font-semibold",
+								children: "Tipo de colaboración"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "py-3 px-3 font-semibold",
+								children: "Desde"
+							})
+						]
+					}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("tbody", { children: PARTNERS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", {
+						className: "border-b border-border/30 last:border-0 hover:bg-primary/5 transition-colors",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
+								className: "py-3 px-3 font-medium",
+								children: p.name
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
+								className: "py-3 px-3 text-muted-foreground",
+								children: p.type
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
+								className: "py-3 px-3 text-muted-foreground",
+								children: p.since
+							})
+						]
+					}, p.name)) })]
+				})
+			})]
+		})
+	});
+}
+function Gallery() {
+	const [active, setActive] = (0, import_react.useState)(null);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "galeria",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+					eyebrow: "Multimedia",
+					title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Galería y ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-gradient",
+						children: "portafolio"
+					})] }),
+					subtitle: "Momentos, proyectos y explorando visualmente el universo de la IA."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+					variants: { show: { transition: { staggerChildren: .05 } } },
+					initial: "hidden",
+					whileInView: "show",
+					viewport: {
+						once: true,
+						margin: "-80px"
+					},
+					className: "grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+					children: GALLERY.map((src, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.button, {
+						variants: jelly,
+						whileHover: {
+							scale: 1.05,
+							rotate: [
+								0,
+								-1,
+								1,
+								0
+							]
+						},
+						whileTap: { scale: .95 },
+						onClick: () => setActive(src),
+						className: "relative aspect-square overflow-hidden rounded-2xl glass group",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							src,
+							alt: `Proyecto IA ${i + 1}`,
+							loading: "lazy",
+							className: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+						})
+					}, src))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					id: "conoce-mas",
+					className: "mt-16",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+						className: "text-2xl font-bold text-center mb-6",
+						children: ["Conoce más: ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-gradient",
+							children: "¿qué es la IA?"
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+						initial: {
+							opacity: 0,
+							scale: .95
+						},
+						whileInView: {
+							opacity: 1,
+							scale: 1
+						},
+						viewport: {
+							once: true,
+							margin: "-80px"
+						},
+						transition: {
+							type: "spring",
+							stiffness: 140,
+							damping: 14
+						},
+						className: "glass rounded-3xl p-3 max-w-3xl mx-auto",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "relative w-full aspect-video overflow-hidden rounded-2xl",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+								src: "https://www.youtube.com/embed/2ePf9rue1Ao",
+								title: "Introducción a la Inteligencia Artificial",
+								allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+								allowFullScreen: true,
+								className: "absolute inset-0 w-full h-full"
+							})
+						})
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, { children: active && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+					initial: { opacity: 0 },
+					animate: { opacity: 1 },
+					exit: { opacity: 0 },
+					onClick: () => setActive(null),
+					className: "fixed inset-0 z-60 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 cursor-zoom-out",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.img, {
+						initial: {
+							scale: .8,
+							opacity: 0
+						},
+						animate: {
+							scale: 1,
+							opacity: 1
+						},
+						exit: {
+							scale: .8,
+							opacity: 0
+						},
+						transition: {
+							type: "spring",
+							stiffness: 200,
+							damping: 20
+						},
+						src: active,
+						alt: "Vista ampliada",
+						className: "max-w-full max-h-full rounded-2xl shadow-jelly"
+					})
+				}) })
+			]
+		})
+	});
+}
+function Testimonials() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "testimonios",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+				eyebrow: "Casos de éxito",
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+					"Lo que ",
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-gradient",
+						children: "dicen"
+					}),
+					" de nosotros"
+				] })
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				variants: { show: { transition: { staggerChildren: .08 } } },
+				initial: "hidden",
+				whileInView: "show",
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-4",
+				children: TESTIMONIALS.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.blockquote, {
+					variants: jelly,
+					whileHover: jellyHover,
+					className: "glass rounded-3xl p-6 flex flex-col",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-sm text-muted-foreground leading-relaxed mb-4",
+						children: [
+							"“",
+							t.quote,
+							"”"
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
+						className: "mt-auto",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "font-semibold text-sm",
+							children: t.name
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-xs text-muted-foreground",
+							children: t.role
+						})]
+					})]
+				}, t.name))
+			})]
+		})
+	});
+}
+function Contact() {
+	const send = useServerFn(sendContactMessage);
+	const [status, setStatus] = (0, import_react.useState)("idle");
+	const [error, setError] = (0, import_react.useState)("");
+	const [form, setForm] = (0, import_react.useState)({
+		name: "",
+		email: "",
+		message: ""
+	});
+	const reduce = useReducedMotion();
+	async function onSubmit(e) {
+		e.preventDefault();
+		setStatus("sending");
+		setError("");
+		try {
+			const res = await send({ data: form });
+			if (res.ok) {
+				setStatus("ok");
+				setForm({
+					name: "",
+					email: "",
+					message: ""
+				});
+			} else {
+				setStatus("error");
+				setError(res.error ?? "Error desconocido");
+			}
+		} catch (err) {
+			setStatus("error");
+			setError(err instanceof Error ? err.message : "Error al enviar");
+		}
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "contacto",
+		className: "py-24 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-2xl mx-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionTitle, {
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Queja o ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-gradient",
+					children: "sugerencia"
+				})] }),
+				subtitle: "Cuéntanos qué piensas. Leemos cada mensaje."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.form, {
+				onSubmit,
+				initial: {
+					opacity: 0,
+					scale: .9,
+					y: 30
+				},
+				whileInView: {
+					opacity: 1,
+					scale: 1,
+					y: 0
+				},
+				viewport: { once: true },
+				transition: {
+					type: "spring",
+					stiffness: 150,
+					damping: 14
+				},
+				className: "glass rounded-3xl p-8 space-y-5",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Nombre",
+						value: form.name,
+						onChange: (v) => setForm((f) => ({
+							...f,
+							name: v
+						})),
+						placeholder: "Tu nombre",
+						required: true,
+						maxLength: 100
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Correo",
+						type: "email",
+						value: form.email,
+						onChange: (v) => setForm((f) => ({
+							...f,
+							email: v
+						})),
+						placeholder: "tu@correo.com",
+						required: true,
+						maxLength: 255
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+						className: "block text-sm font-medium mb-2",
+						children: "Mensaje"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.textarea, {
+						whileFocus: reduce ? void 0 : { scale: 1.01 },
+						value: form.message,
+						onChange: (e) => setForm((f) => ({
+							...f,
+							message: e.target.value
+						})),
+						required: true,
+						maxLength: 2e3,
+						rows: 5,
+						placeholder: "Cuéntanos tu queja o sugerencia...",
+						className: "w-full rounded-2xl bg-input-50 border border-input px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition resize-none"
+					})] }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.button, {
+						type: "submit",
+						disabled: status === "sending",
+						whileHover: status === "sending" ? void 0 : jellyHover,
+						whileTap: status === "sending" ? void 0 : jellyTap,
+						className: "w-full bg-gradient-primary text-primary-foreground font-semibold rounded-2xl py-3.5 shadow-jelly disabled:opacity-60",
+						children: status === "sending" ? "Enviando..." : "Enviar mensaje"
+					}),
+					status === "ok" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.p, {
+						initial: {
+							opacity: 0,
+							scale: .5
+						},
+						animate: {
+							opacity: 1,
+							scale: 1
+						},
+						transition: {
+							type: "spring",
+							stiffness: 200,
+							damping: 10
+						},
+						className: "text-center text-sm text-primary",
+						children: "✅ ¡Mensaje enviado! Gracias por escribirnos."
+					}),
+					status === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.p, {
+						initial: { x: -10 },
+						animate: { x: [
+							10,
+							-10,
+							8,
+							-8,
+							0
+						] },
+						transition: { duration: .4 },
+						className: "text-center text-sm text-destructive",
+						children: ["⚠️ ", error]
+					})
+				]
+			})]
+		})
+	});
+}
+function Legal() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "py-16 px-6",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-4xl mx-auto grid gap-6 md:grid-cols-2",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
+				id: "privacidad",
+				initial: {
+					opacity: 0,
+					y: 20
+				},
+				whileInView: {
+					opacity: 1,
+					y: 0
+				},
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				className: "glass rounded-3xl p-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-xl font-bold mb-3",
+					children: "Aviso de privacidad"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-muted-foreground leading-relaxed",
+					children: "En NeuraWave respetamos tu privacidad. Los datos que compartas mediante el formulario de contacto (nombre, correo y mensaje) se usan únicamente para responder a tu solicitud y no se comparten con terceros. Puedes solicitar su eliminación escribiendo a nuestro correo."
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
+				id: "terminos",
+				initial: {
+					opacity: 0,
+					y: 20
+				},
+				whileInView: {
+					opacity: 1,
+					y: 0
+				},
+				viewport: {
+					once: true,
+					margin: "-80px"
+				},
+				className: "glass rounded-3xl p-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-xl font-bold mb-3",
+					children: "Términos y condiciones"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-muted-foreground leading-relaxed",
+					children: "El contenido de este sitio tiene fines educativos e informativos. NeuraWave no se hace responsable por decisiones tomadas a partir de la información aquí publicada. Al usar el sitio aceptas hacerlo de forma respetuosa y conforme a la ley aplicable."
+				})]
+			})]
+		})
+	});
+}
+function Field({ label, value, onChange, type = "text", placeholder, required, maxLength }) {
+	const reduce = useReducedMotion();
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+		className: "block text-sm font-medium mb-2",
+		children: label
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.input, {
+		whileFocus: reduce ? void 0 : { scale: 1.01 },
+		type,
+		value,
+		onChange: (e) => onChange(e.target.value),
+		placeholder,
+		required,
+		maxLength,
+		className: "w-full rounded-2xl bg-input-50 border border-input px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition"
+	})] });
+}
+function JellyButton({ children, href, variant = "primary" }) {
+	const base = "inline-flex items-center justify-center px-7 py-3.5 rounded-full font-semibold text-sm transition";
+	const styles = variant === "primary" ? "bg-gradient-primary text-primary-foreground shadow-jelly" : "glass hover:border-primary/60";
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.a, {
+		href,
+		whileHover: jellyHover,
+		whileTap: jellyTap,
+		className: `${base} ${styles}`,
+		children
+	});
+}
+var SOCIAL = [
+	{
+		label: "Instagram",
+		href: "https://instagram.com/",
+		icon: "📸"
+	},
+	{
+		label: "LinkedIn",
+		href: "https://linkedin.com/",
+		icon: "💼"
+	},
+	{
+		label: "X / Twitter",
+		href: "https://x.com/",
+		icon: "𝕏"
+	},
+	{
+		label: "YouTube",
+		href: "https://youtube.com/",
+		icon: "▶️"
+	}
+];
+function Footer() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
+		className: "py-12 px-6 border-t border-border/50",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto grid gap-8 md:grid-cols-3 text-sm",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex items-center gap-3",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "font-bold text-lg text-gradient mb-2",
+						children: "◈ NeuraWave"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-muted-foreground text-xs leading-relaxed",
+						children: "Divulgación y formación en Inteligencia Artificial."
+					})] })
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+					className: "font-semibold mb-3",
+					children: "Enlaces"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
+					className: "space-y-2 text-muted-foreground",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#sobre-nosotros",
+							className: "hover:text-foreground",
+							children: "Sobre nosotros"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#servicios",
+							className: "hover:text-foreground",
+							children: "Servicios"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#aliados",
+							className: "hover:text-foreground",
+							children: "Aliados"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#privacidad",
+							className: "hover:text-foreground",
+							children: "Aviso de privacidad"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#terminos",
+							className: "hover:text-foreground",
+							children: "Términos y condiciones"
+						}) })
+					]
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+					className: "font-semibold mb-3",
+					children: "Síguenos"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex flex-wrap gap-3",
+					children: SOCIAL.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.a, {
+						href: s.href,
+						target: "_blank",
+						rel: "noopener noreferrer",
+						whileHover: jellyHover,
+						whileTap: jellyTap,
+						"aria-label": s.label,
+						className: "glass rounded-full px-4 py-2 text-xs inline-flex items-center gap-2",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": true,
+								children: s.icon
+							}),
+							" ",
+							s.label
+						]
+					}, s.label))
+				})] })
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-6xl mx-auto mt-10 pt-6 border-t border-border/40 text-center text-xs text-muted-foreground",
+			children: [
+				"© ",
+				(/* @__PURE__ */ new Date()).getFullYear(),
+				" NeuraWave · Todos los derechos reservados"
+			]
+		})]
+	});
+}
+//#endregion
+export { Index as component };
