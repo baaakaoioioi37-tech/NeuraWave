@@ -1,72 +1,29 @@
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+import emailjs from '@emailjs/browser';
 
-const schema = z.object({
-  name: z.string().trim().min(1).max(100),
-  email: z.string().trim().email().max(255),
-  message: z.string().trim().min(1).max(2000),
-});
+interface ContactMessageData {
+  name: string;
+  email: string;
+  message: string;
+}
 
-export const sendContactMessage = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => schema.parse(input))
-  .handler(async ({ data }) => {
-    const accessKey = (globalThis as any).process?.env?.WEB3FORMS_ACCESS_KEY;
-    const adminEmail = (globalThis as any).process?.env?.ADMIN_EMAIL || "alanjexux@gmail.com";
-    
-    if (!accessKey) {
-      console.error("❌ Error interno: WEB3FORMS_ACCESS_KEY no está definida en Vercel.");
-      return {
-        ok: false,
-        error:
-          "El servicio de envío no está configurado. Añade WEB3FORMS_ACCESS_KEY en los secretos del proyecto.",
-      };
-    }
+export async function sendContactMessage(data: ContactMessageData) {
+  try {
+    const templateParams = {
+      name: data.name,
+      email: data.email,
+      message: data.message,
+    };
 
-    console.log("Iniciando envío de formulario de:", data.name);
-
-    // Enviar correo al administrador
-    const resAdmin = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: accessKey,
-        subject: `Nueva queja/sugerencia de ${data.name}`,
-        from_name: "Formulario NeuraWave",
-        email: data.email,
-        name: data.name,
-        message: data.message,
-        to_email: adminEmail, 
-        redirect: false,
-      }),
-    });
-
-    const jsonAdmin = (await resAdmin.json().catch(() => ({}))) as { success?: boolean; message?: string };
-    
-    // 👇 ESTO ES LO QUE VEREMOS EN VERCEL
-    console.log("Status HTTP Web3Forms (Admin):", resAdmin.status);
-    console.log("Respuesta Web3Forms (Admin):", jsonAdmin);
-
-    if (!resAdmin.ok || !jsonAdmin.success) {
-      console.error("❌ Fallo devuelto por Web3Forms al notificar al admin.");
-      return { ok: false, error: jsonAdmin.message ?? "No se pudo enviar el mensaje." };
-    }
-
-    // Enviar correo de confirmación al usuario
-    const resUser = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: accessKey,
-        subject: "Hemos recibido tu mensaje - NeuraWave",
-        from_name: "NeuraWave",
-        message: `Hola ${data.name},\n\nGracias por tu mensaje:\n\n"${data.message}"\n\nLo hemos recibido correctamente y nos pondremos en contacto contigo pronto.\n\nSaludos,\nEl equipo de NeuraWave`,
-        to_email: data.email,
-        redirect: false,
-      }),
-    });
-
-    const jsonUser = (await resUser.json().catch(() => ({}))) as { success?: boolean };
-    console.log("Respuesta Web3Forms (Usuario):", jsonUser);
+    await emailjs.send(
+      'service_mx71fhx', 
+      'template_cvlh0l6', 
+      templateParams, 
+      'KNFQ2ihHQ2s1LjyqJ'
+    );
 
     return { ok: true };
-  });
+  } catch (error) {
+    console.error("Error al enviar con EmailJS:", error);
+    return { ok: false, error: "No se pudo enviar el mensaje." };
+  }
+}
