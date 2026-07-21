@@ -14,12 +14,15 @@ export const sendContactMessage = createServerFn({ method: "POST" })
     const adminEmail = (globalThis as any).process?.env?.ADMIN_EMAIL || "alanjexux@gmail.com";
     
     if (!accessKey) {
+      console.error("❌ Error interno: WEB3FORMS_ACCESS_KEY no está definida en Vercel.");
       return {
         ok: false,
         error:
           "El servicio de envío no está configurado. Añade WEB3FORMS_ACCESS_KEY en los secretos del proyecto.",
       };
     }
+
+    console.log("Iniciando envío de formulario de:", data.name);
 
     // Enviar correo al administrador
     const resAdmin = await fetch("https://api.web3forms.com/submit", {
@@ -32,13 +35,19 @@ export const sendContactMessage = createServerFn({ method: "POST" })
         email: data.email,
         name: data.name,
         message: data.message,
-        to_email: adminEmail,
+        to_email: adminEmail, 
         redirect: false,
       }),
     });
 
     const jsonAdmin = (await resAdmin.json().catch(() => ({}))) as { success?: boolean; message?: string };
+    
+    // 👇 ESTO ES LO QUE VEREMOS EN VERCEL
+    console.log("Status HTTP Web3Forms (Admin):", resAdmin.status);
+    console.log("Respuesta Web3Forms (Admin):", jsonAdmin);
+
     if (!resAdmin.ok || !jsonAdmin.success) {
+      console.error("❌ Fallo devuelto por Web3Forms al notificar al admin.");
       return { ok: false, error: jsonAdmin.message ?? "No se pudo enviar el mensaje." };
     }
 
@@ -56,8 +65,8 @@ export const sendContactMessage = createServerFn({ method: "POST" })
       }),
     });
 
-    // No fallar si el correo de confirmación no se envía
     const jsonUser = (await resUser.json().catch(() => ({}))) as { success?: boolean };
+    console.log("Respuesta Web3Forms (Usuario):", jsonUser);
 
     return { ok: true };
   });
